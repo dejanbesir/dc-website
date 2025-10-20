@@ -1,0 +1,16 @@
+# Enable Apache’s rewrite engine
+RewriteEngine On
+RewriteBase /
+
+# 1) Serve index.html for directory requests (e.g. /properties/, /blog/)
+DirectoryIndex index.html
+
+# 2) If request maps to an existing file or directory, leave it
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 3) If adding “.html” makes it point to a real file, serve that (and keep the clean URL)
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*?)/?$ $1.html [L]
+

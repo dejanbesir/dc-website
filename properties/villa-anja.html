@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Villa Anja • Dubrovnik Coast</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>html {scroll-behavior: smooth;}</style>
+  <!-- LodgingBusiness schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Villa Anja",
+    "image": [
+      "/img/villa-anja/hero1.jpg",
+      "/img/villa-anja/hero2.jpg"
+    ],
+    "description": "Villa Anja is a sun-drenched Dalmatian retreat with private pool, sea views & garden.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Stara Mokošica bb",
+      "addressLocality": "Dubrovnik",
+      "addressRegion": "Dubrovnik-Neretva",
+      "postalCode": "20218",
+      "addressCountry": "HR"
+    },
+    "telephone": "+38520123456",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 42.6507,
+      "longitude": 18.0944
+    },
+    "starRating": {
+      "@type": "Rating",
+      "ratingValue": "4.8",
+      "bestRating": "5"
+    },
+    "priceRange": "€350–€650",
+    "url": "https://dubrovnik-coast.com/properties/villa-anja/"
+  }
+  </script>
+</head>
+
+<body class="flex flex-col min-h-screen text-gray-800">
+
+  <!-- HEADER -->
+  <header class="bg-white shadow-md fixed w-full z-20">
+    <div class="container mx-auto grid grid-cols-3 items-center py-4 px-6">
+      <div><a href="/" class="text-2xl font-serif text-indigo-800">Dubrovnik Coast</a></div>
+      <nav class="hidden md:flex justify-center space-x-6">
+        <a href="/" class="hover:text-indigo-600">Home</a>
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-indigo-600">
+            Properties 
+            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-44 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
+            <a href="/properties/#tab-villas" class="block px-4 py-2 hover:bg-gray-100">Villas</a>
+            <a href="/properties/#tab-apts" class="block px-4 py-2 hover:bg-gray-100">Apartments</a>
+          </div>
+        </div>
+        <a href="#about" class="hover:text-indigo-600">Our Story</a>
+        <a href="/blog"  class="hover:text-indigo-600">Blog</a>
+        <a href="/contact" class="hover:text-indigo-600">Contact</a>
+      </nav>
+      <div class="flex justify-end items-center space-x-4">
+        <a href="/properties/" class="hidden md:inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Book Now</a>
+        <button id="mobile-menu-button" class="md:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- mobile nav omitted for brevity -->
+  </header>
+  <div class="h-20"></div>
+
+  <!-- HERO SLIDER -->
+<!-- INLINE GALLERY (container-aligned, big image 60% viewport height) -->
+<section class="container mx-auto px-4 md:px-6 lg:px-8 mt-6" data-gallery-inline aria-label="Property gallery">
+  
+  <!-- Large image area -->
+  <figure class="relative w-full h-[60vh] overflow-hidden rounded-lg bg-gray-100">
+    <img
+      id="vaMainImage"
+      src="/img/villa-anja/villa-anja.jpg"
+      alt="Sea-view terrace at Villa Anja overlooking Lokrum"
+      class="h-full w-full object-cover"
+      loading="eager" fetchpriority="high" decoding="async"
+    />
+    <figcaption id="vaCaption" class="sr-only">
+      Sea-view terrace at Villa Anja overlooking Lokrum
+    </figcaption>
+
+    <!-- Optional prev/next controls -->
+    <button type="button" class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full p-2 bg-black/30 text-white hover:bg-black/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+      data-inline-prev aria-label="Previous image">‹</button>
+    <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-2 bg-black/30 text-white hover:bg-black/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+      data-inline-next aria-label="Next image">›</button>
+  </figure>
+
+  <!-- Thumbnails rail -->
+  <div class="mt-3 flex gap-2 overflow-x-auto pb-1" role="listbox" aria-label="Gallery thumbnails">
+    <!-- Template: each thumb is a button with data-full + inner <img>. Order controls rotation. -->
+    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg ring-2 ring-primary/80"
+            data-gallery-thumb data-full="/img/villa-anja/villa-anja-7.jpg" data-alt="Sea-view terrace at Villa Anja overlooking Lokrum"
+            aria-label="Show image 1" aria-selected="true">
+      <img src="/img/villa-anja/villa-anja-7.jpg" alt="Sea-view terrace"
+           class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
+    </button>
+
+    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+            data-gallery-thumb data-full="/img/villa-anja/villa-anja-2.jpg" data-alt="Bright living room with exposed stone walls"
+            aria-label="Show image 2" aria-selected="false">
+      <img src="/img/villa-anja/villa-anja-2.jpg" alt="Living room with stone details"
+           class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
+    </button>
+
+    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+            data-gallery-thumb data-full="/img/villa-anja/villa-anja-3.jpg" data-alt="Master bedroom with balcony facing the Adriatic"
+            aria-label="Show image 3" aria-selected="false">
+      <img src="/img/villa-anja/villa-anja-3.jpg" alt="Master bedroom with balcony"
+           class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
+    </button>
+
+    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+            data-gallery-thumb data-full="/img/villa-anja/villa-anja-4.jpg" data-alt="Modern kitchen with dining island"
+            aria-label="Show image 4" aria-selected="false">
+      <img src="/img/villa-anja/villa-anja-4.jpg" alt="Kitchen and dining"
+           class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
+    </button>
+
+    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+            data-gallery-thumb data-full="/img/villa-anja/villa-anja-8.jpg" data-alt="Bathroom with walk-in rain shower"
+            aria-label="Show image 5" aria-selected="false">
+      <img src="/img/villa-anja/villa-anja-8.jpg" alt="Bathroom"
+           class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
+    </button>
+
+    <!-- Add as many as you like: just copy the button block and update data-full + data-alt + alt -->
+  </div>
+</section>
+
+
+
+  <main class="container mx-auto px-6 py-12 flex-grow space-y-12">
+
+    <!-- TITLE & KEY FACTS -->
+    <section>
+      <h1 class="text-4xl font-serif text-indigo-800 mb-2">Villa Anja</h1>
+      <p class="text-lg text-gray-600 mb-4">Sleeps 6 • 3 Bedrooms • Private Pool & Garden</p>
+      <p class="font-semibold text-xl">From €450 / night</p>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section>
+      <p class="mb-4">Villa Anja is a sun-drenched Dalmatian retreat perched on a secluded cove, blending modern lines with traditional stone architecture. Floor-to-ceiling windows frame uninterrupted Adriatic views, while your private infinity pool and landscaped terraced garden await just steps from the shore.</p>
+      <p>Inside, an open-plan living area, sleek kitchen, and bespoke furnishings create a relaxed yet refined atmosphere. Our dedicated local team is on call 24/7 to arrange private tours, island-hopping boat trips, and more.</p>
+    </section>
+
+    <!-- PRICING BY SEASON -->
+    <section id="pricing">
+      <h2 class="text-2xl font-semibold mb-4">Pricing by Season</h2>
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3">Period</th>
+            <th class="p-3">Dates</th>
+            <th class="p-3">Nightly Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-3">Low Season</td><td class="p-3">Apr 1 – May 31</td><td class="p-3">€350</td></tr>
+          <tr><td class="p-3">Shoulder Season</td><td class="p-3">Jun 1 – Jun 30 & Sep 1 – Sep 30</td><td class="p-3">€450</td></tr>
+          <tr><td class="p-3">High Season</td><td class="p-3">Jul 1 – Aug 31</td><td class="p-3">€600</td></tr>
+          <tr><td class="p-3">Holiday Premium</td><td class="p-3">Dec 20 – Jan 5</td><td class="p-3">€650</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- QUICK FACTS -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Quick Facts</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div><strong>6</strong><br>Guests</div>
+        <div><strong>3</strong><br>Bedrooms</div>
+        <div><strong>3</strong><br>Bathrooms</div>
+        <div><strong>✓</strong><br>Private Pool</div>
+        <div><strong>✓</strong><br>Wi-Fi</div>
+        <div><strong>✓</strong><br>Air-Con</div>
+        <div><strong>✓</strong><br>Parking</div>
+        <div><strong>✓</strong><br>Sea View</div>
+      </div>
+    </section>
+
+    <!-- AMENITIES -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Amenities & Services</h2>
+      <ul class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><circle cx="12" cy="12" r="10" stroke="currentColor" fill="none"/></svg><span>Private Pool</span></li>
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><rect x="4" y="4" width="16" height="16" stroke="currentColor" fill="none"/></svg><span>Full Kitchen & BBQ</span></li>
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><path d="M4 12h16" stroke="currentColor"/></svg><span>Wi-Fi</span></li>
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><circle cx="12" cy="12" r="5" stroke="currentColor" fill="none"/></svg><span>Smart TV</span></li>
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><path d="M5 12l5 5 10-10" stroke="currentColor"/></svg><span>Housekeeping</span></li>
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><path d="M12 2v20" stroke="currentColor"/></svg><span>Airport Transfer</span></li>
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><path d="M12 2v20" stroke="currentColor"/></svg><span>24/7 Concierge</span></li>
+        <li class="flex items-center space-x-2"><svg class="w-6 h-6"><path d="M4 4l16 16" stroke="currentColor"/></svg><span>Sound-Proofing</span></li>
+      </ul>
+    </section>
+
+    <!-- FLOOR PLAN -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Floor Plan</h2>
+      <img src="/img/villa-anja/floorplan.jpg" alt="Villa Anja Floor Plan" class="w-full rounded-lg shadow-lg cursor-pointer" />
+      <ul class="list-disc pl-5 mt-4 space-y-2">
+        <li><strong>Ground Floor:</strong> Living/dining/kitchen, guest WC</li>
+        <li><strong>Upper Level:</strong> Three en-suite bedrooms, balconies</li>
+      </ul>
+    </section>
+
+    <!-- PHOTO GALLERY -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Gallery</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img src="/img/villa-anja/gallery1.jpg" alt="" class="w-full h-40 object-cover rounded-lg cursor-pointer"/>
+        <img src="/img/villa-anja/gallery2.jpg" alt="" class="w-full h-40 object-cover rounded-lg cursor-pointer"/>
+        <img src="/img/villa-anja/gallery3.jpg" alt="" class="w-full h-40 object-cover rounded-lg cursor-pointer"/>
+        <img src="/img/villa-anja/gallery4.jpg" alt="" class="w-full h-40 object-cover rounded-lg cursor-pointer"/>
+      </div>
+    </section>
+
+    <!-- AVAILABILITY -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Availability</h2>
+      <!-- you can embed your calendar widget here -->
+      <div class="bg-gray-100 h-64 flex items-center justify-center text-gray-500">
+        [Availability Calendar]
+      </div>
+    </section>
+
+    <!-- LOCATION & MAP -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Location</h2>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!..."
+        class="w-full h-64 rounded-lg shadow-lg"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+      <p class="mt-2 text-gray-600">Stara Mokošica bb, Dubrovnik, Croatia</p>
+    </section>
+
+    <!-- GUEST REVIEWS -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Guest Reviews</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <blockquote class="bg-white p-6 rounded-lg shadow">
+          <p class="italic mb-4">“We felt like royalty—Villa Anja’s infinity pool and sunrise views were unforgettable!”</p>
+          <footer class="flex items-center space-x-3 text-sm text-gray-600">
+            <span>★★★★★</span><cite>— The Martin Family, UK</cite>
+          </footer>
+        </blockquote>
+        <blockquote class="bg-white p-6 rounded-lg shadow">
+          <p class="italic mb-4">“The team organized a private truffle hunt—best day of our Dalmatian adventure.”</p>
+          <footer class="flex items-center space-x-3 text-sm text-gray-600">
+            <span>★★★★★</span><cite>— Anna & Marco, IT</cite>
+          </footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- SIMILAR VILLAS -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">You Might Also Like</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Repeat this card for others -->
+        <div class="border rounded-lg overflow-hidden shadow-lg">
+          <img src="/img/villa-ivo/villa-ivo.jpg" alt="Villa Ivo" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Villa Ivo</h3>
+            <p class="text-sm text-gray-600">Sleeps 15 • Infinity Pool</p>
+            <a href="/properties/villa-ivo" class="text-indigo-600 hover:underline">View Details →</a>
+          </div>
+        </div>
+        <!-- Villa King -->
+        <div class="border rounded-lg overflow-hidden shadow-lg">
+          <img src="/img/villa-king/villa-king.jpg" alt="Villa King" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Villa King</h3>
+            <p class="text-sm text-gray-600">Sleeps 14 • Sea-View Terraces</p>
+            <a href="/properties/villa-king" class="text-indigo-600 hover:underline">View Details →</a>
+          </div>
+        </div>
+        <!-- Villa Queen -->
+        <div class="border rounded-lg overflow-hidden shadow-lg">
+          <img src="/img/villa-queen/villa-queen.jpg" alt="Villa Queen" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Villa Queen</h3>
+            <p class="text-sm text-gray-600">Sleeps 12 • Private Garden</p>
+            <a href="/properties/villa-queen" class="text-indigo-600 hover:underline">View Details →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-800 text-gray-200 mt-auto">
+    <div class="container mx-auto px-6 grid md:grid-cols-4 gap-8 py-12">
+      <!-- Quick Links -->
+      <div>
+        <h3 class="font-serif text-lg text-white mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="/properties/" class="hover:underline">Properties</a></li>
+          <li><a href="#about"      class="hover:underline">Our Story</a></li>
+          <li><a href="/blog"       class="hover:underline">Blog</a></li>
+          <li><a href="/contact"    class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <!-- Legal -->
+      <div>
+        <h3 class="font-serif text-lg text-white mb-4">Legal</h3>
+        <ul class="space-y-2">
+          <li><a href="/terms"           class="hover:underline">Terms &amp; Conditions</a></li>
+          <li><a href="/privacy"         class="hover:underline">Privacy Policy</a></li>
+          <li><a href="/cookies"         class="hover:underline">Cookie Policy</a></li>
+          <li><a href="/disclaimer"      class="hover:underline">Disclaimer</a></li>
+          <li><a href="/accessibility"   class="hover:underline">Accessibility</a></li>
+        </ul>
+      </div>
+      <!-- Connect & Social -->
+      <div>
+        <h3 class="font-serif text-lg text-white mb-4">Connect With Us</h3>
+        <div class="flex space-x-4 mb-4">
+          <a href="https://www.facebook.com/dubrovnikcoast" target="_blank" class="hover:text-white">
+            <!-- fb svg -->
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">…</svg>
+          </a>
+          <a href="https://www.instagram.com/dubrovnikcoast" target="_blank" class="hover:text-white">
+            <!-- insta svg -->
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">…</svg>
+          </a>
+        </div>
+        <p class="text-gray-400 font-medium">Follow us for exclusive offers & inspiration</p>
+      </div>
+      <!-- Payments -->
+      <div>
+        <h3 class="font-serif text-lg text-white mb-4">Secure Payments</h3>
+        <img src="/img/payments/stripefooter.png" alt="Stripe" class="h-8">
+      </div>
+    </div>
+    <div class="bg-gray-900 text-gray-500 py-4 text-center text-sm">
+      © 2025 Dubrovnik Coast. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="/js/main.js"></script>
+  <script>
+    // Hero slider
+    (() => {
+      const slides = document.querySelectorAll('#hero-slider img');
+      let idx = 0;
+      document.getElementById('hero-next').onclick = () => {
+        slides[idx].classList.add('hidden');
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.remove('hidden');
+      };
+      document.getElementById('hero-prev').onclick = () => {
+        slides[idx].classList.add('hidden');
+        idx = (idx - 1 + slides.length) % slides.length;
+        slides[idx].classList.remove('hidden');
+      };
+    })();
+  </script>
+</body>
+</html>
