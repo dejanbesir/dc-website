@@ -1,137 +1,191 @@
-// main.js
+'use strict';
 
-// 1. Mobile menu toggle
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-
-mobileMenuButton.addEventListener('click', () => {
-  mobileMenu.classList.toggle('hidden');
+// Core behaviour initialisers executed once the DOM is ready.
+document.addEventListener('DOMContentLoaded', () => {
+  initMobileMenu();
+  initFeaturedCarousel();
+  initPropertyFilters();
+  initInlineGalleries();
 });
 
-// ===== Featured Carousel =====
-document.addEventListener('DOMContentLoaded', () => {
-  // --- Mobile menu toggle (your existing code) ---
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu       = document.getElementById('mobile-menu');
-  mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
+function initMobileMenu() {
+  const toggle = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
 
-  // --- Carousel logic ---
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+}
+
+function initFeaturedCarousel() {
   const carouselEl = document.getElementById('carousel');
-  const slides     = Array.from(carouselEl.querySelectorAll('.carousel-item'));
-  const prevBtn    = document.getElementById('prevBtn');
-  const nextBtn    = document.getElementById('nextBtn');
+  if (!carouselEl) return;
+
+  const slides = Array.from(carouselEl.querySelectorAll('.carousel-item'));
+  if (slides.length === 0) return;
+
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
   let currentIndex = 0;
 
-  function showSlide(idx) {
+  const showSlide = (idx) => {
+    if (slides.length === 0) return;
+    const total = slides.length;
+    currentIndex = ((idx % total) + total) % total;
+
     slides.forEach((slide, i) => {
-      slide.classList.toggle('hidden', i !== idx);
+      const isActive = i === currentIndex;
+      slide.classList.toggle('hidden', !isActive);
+      slide.setAttribute('aria-hidden', String(!isActive));
     });
+  };
+
+  prevBtn?.addEventListener('click', () => {
+    showSlide(currentIndex - 1);
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    showSlide(currentIndex + 1);
+  });
+
+  if (slides.length > 1) {
+    setInterval(() => {
+      showSlide(currentIndex + 1);
+    }, 6000);
   }
 
-  // Button handlers
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
-  });
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
-  });
-
-  // Auto-rotate
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
-  }, 6000);
-
-  // Kick it off
   showSlide(currentIndex);
-});
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  const allBtn    = document.getElementById('tab-all');
+function initPropertyFilters() {
+  const allBtn = document.getElementById('tab-all');
   const villasBtn = document.getElementById('tab-villas');
-  const aptsBtn   = document.getElementById('tab-apts');
-  const cards     = document.querySelectorAll('.property-card');
+  const aptsBtn = document.getElementById('tab-apts');
+  const cards = document.querySelectorAll('.property-card');
 
-  function activate(btn) {
-    [allBtn, villasBtn, aptsBtn].forEach(b => {
-      b.classList.toggle('bg-indigo-600', b === btn);
-      b.classList.toggle('text-white',     b === btn);
-      b.classList.toggle('bg-gray-200',    b !== btn);
-      b.classList.toggle('text-gray-700',  b !== btn);
-    });
-  }
+  if (!allBtn || !villasBtn || !aptsBtn || cards.length === 0) return;
 
-  function filter(type) {
-    cards.forEach(card => {
-      // show all, or only villas/apartments
-      card.classList.toggle('hidden',
-        type !== 'all' && card.dataset.type !== type
-      );
+  const activate = (target) => {
+    [allBtn, villasBtn, aptsBtn].forEach((btn) => {
+      const isActive = btn === target;
+      btn.classList.toggle('bg-indigo-600', isActive);
+      btn.classList.toggle('text-white', isActive);
+      btn.classList.toggle('bg-gray-200', !isActive);
+      btn.classList.toggle('text-gray-700', !isActive);
     });
-  }
+  };
+
+  const filterCards = (type) => {
+    cards.forEach((card) => {
+      const shouldHide = type !== 'all' && card.dataset.type !== type;
+      card.classList.toggle('hidden', shouldHide);
+    });
+  };
 
   allBtn.addEventListener('click', () => {
     activate(allBtn);
-    filter('all');
+    filterCards('all');
   });
 
   villasBtn.addEventListener('click', () => {
     activate(villasBtn);
-    filter('villa');
+    filterCards('villa');
   });
 
   aptsBtn.addEventListener('click', () => {
     activate(aptsBtn);
-    filter('apartment');
+    filterCards('apartment');
   });
 
-  // initialize
-  allBtn.click();
-});
+  // Initialise with "All" active.
+  activate(allBtn);
+  filterCards('all');
+}
 
+function initInlineGalleries() {
+  const galleries = document.querySelectorAll('[data-gallery-inline]');
+  if (!galleries.length) return;
 
-// ===== Inline Gallery (delegated, robust) =====
-(function(){
-  function initInlineGallery() {
-    const root = document.querySelector('[data-gallery-inline]');
-    if (!root) {
-      console.warn('[Gallery] data-gallery-inline root not found');
-      return;
-    }
-    const mainImg = root.querySelector('#vaMainImage');
-    const captionEl = root.querySelector('#vaCaption');
-    if (!mainImg) {
-      console.warn('[Gallery] #vaMainImage not found inside gallery root');
-      return;
-    }
+  galleries.forEach((root) => {
+    const mainImg = root.querySelector('[data-gallery-main]');
+    if (!(mainImg instanceof HTMLImageElement)) return;
 
-    // Build a live list of thumbs whenever needed
-    const getThumbs = () => Array.from(root.querySelectorAll('[data-gallery-thumb]'));
+    const captionEl = root.querySelector('[data-gallery-caption]');
+    const thumbButtons = Array.from(root.querySelectorAll('[data-gallery-thumb]'));
+    if (!thumbButtons.length) return;
 
-    // Helper to set active state
-    function setActive(thumbBtn) {
-      const thumbs = getThumbs();
-      thumbs.forEach(t => {
-        const active = t === thumbBtn;
-        t.setAttribute('aria-selected', String(active));
-        t.classList.toggle('ring-2', active);
-        t.classList.toggle('ring-primary/80', active);
+    const defaultAlt = mainImg.getAttribute('alt') || '';
+    let currentIndex = thumbButtons.findIndex((btn) => btn.getAttribute('aria-selected') === 'true');
+    if (currentIndex < 0) currentIndex = 0;
+
+    const update = (index, { focusThumb = false } = {}) => {
+      if (!thumbButtons.length) return;
+      const total = thumbButtons.length;
+      const normalized = ((index % total) + total) % total;
+      currentIndex = normalized;
+
+      thumbButtons.forEach((btn, idx) => {
+        const isActive = idx === normalized;
+        btn.setAttribute('aria-selected', String(isActive));
+        btn.classList.toggle('ring-2', isActive);
+        btn.classList.toggle('ring-primary/80', isActive);
+        btn.classList.toggle('ring-offset-2', isActive);
       });
-    }
 
-    // Swap main image from a given thumb element
-    function showFromThumb(el) {
-      const full = el.getAttribute('data-full') || el.querySelector('img')?.src;
-      const alt = el.getAttribute('data-alt') || el.querySelector('img')?.alt || 'Property image';
-      if (!full) return;
+      const activeBtn = thumbButtons[normalized];
+      const thumbImg = activeBtn.querySelector('img');
+      const fullSrc = activeBtn.getAttribute('data-full') || thumbImg?.currentSrc || thumbImg?.src;
+      const altText = activeBtn.getAttribute('data-alt') || thumbImg?.alt || defaultAlt;
+      const captionText = activeBtn.getAttribute('data-caption') || altText;
 
-      mainImg.src = full;
-      mainImg.alt = alt;
-      if (captionEl) captionEl.textContent = alt;
+      if (fullSrc) {
+        mainImg.src = fullSrc;
+      }
+      mainImg.alt = altText;
 
-      setActive(el);
-      // Ke
+      if (captionEl) {
+        captionEl.textContent = captionText;
+      }
+
+      if (focusThumb) {
+        activeBtn.focus({ preventScroll: true });
+      }
+    };
+
+    thumbButtons.forEach((btn, index) => {
+      btn.addEventListener('click', () => update(index));
+      btn.addEventListener('keydown', (event) => {
+        switch (event.key) {
+          case 'ArrowLeft':
+          case 'ArrowUp':
+            event.preventDefault();
+            update(currentIndex - 1, { focusThumb: true });
+            break;
+          case 'ArrowRight':
+          case 'ArrowDown':
+            event.preventDefault();
+            update(currentIndex + 1, { focusThumb: true });
+            break;
+          case 'Home':
+            event.preventDefault();
+            update(0, { focusThumb: true });
+            break;
+          case 'End':
+            event.preventDefault();
+            update(thumbButtons.length - 1, { focusThumb: true });
+            break;
+          default:
+            break;
+        }
+      });
+    });
+
+    const prevBtn = root.querySelector('[data-inline-prev]');
+    const nextBtn = root.querySelector('[data-inline-next]');
+    prevBtn?.addEventListener('click', () => update(currentIndex - 1));
+    nextBtn?.addEventListener('click', () => update(currentIndex + 1));
+
+    update(currentIndex);
+  });
+}

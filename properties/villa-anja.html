@@ -89,12 +89,13 @@
   <figure class="relative w-full h-[60vh] overflow-hidden rounded-lg bg-gray-100">
     <img
       id="vaMainImage"
+      data-gallery-main
       src="/img/villa-anja/villa-anja.jpg"
       alt="Sea-view terrace at Villa Anja overlooking Lokrum"
       class="h-full w-full object-cover"
       loading="eager" fetchpriority="high" decoding="async"
     />
-    <figcaption id="vaCaption" class="sr-only">
+    <figcaption id="vaCaption" data-gallery-caption class="sr-only">
       Sea-view terrace at Villa Anja overlooking Lokrum
     </figcaption>
 
@@ -108,35 +109,35 @@
   <!-- Thumbnails rail -->
   <div class="mt-3 flex gap-2 overflow-x-auto pb-1" role="listbox" aria-label="Gallery thumbnails">
     <!-- Template: each thumb is a button with data-full + inner <img>. Order controls rotation. -->
-    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg ring-2 ring-primary/80"
+    <button type="button" role="option" class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg ring-2 ring-primary/80"
             data-gallery-thumb data-full="/img/villa-anja/villa-anja-7.jpg" data-alt="Sea-view terrace at Villa Anja overlooking Lokrum"
             aria-label="Show image 1" aria-selected="true">
       <img src="/img/villa-anja/villa-anja-7.jpg" alt="Sea-view terrace"
            class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
     </button>
 
-    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+    <button type="button" role="option" class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
             data-gallery-thumb data-full="/img/villa-anja/villa-anja-2.jpg" data-alt="Bright living room with exposed stone walls"
             aria-label="Show image 2" aria-selected="false">
       <img src="/img/villa-anja/villa-anja-2.jpg" alt="Living room with stone details"
            class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
     </button>
 
-    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+    <button type="button" role="option" class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
             data-gallery-thumb data-full="/img/villa-anja/villa-anja-3.jpg" data-alt="Master bedroom with balcony facing the Adriatic"
             aria-label="Show image 3" aria-selected="false">
       <img src="/img/villa-anja/villa-anja-3.jpg" alt="Master bedroom with balcony"
            class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
     </button>
 
-    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+    <button type="button" role="option" class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
             data-gallery-thumb data-full="/img/villa-anja/villa-anja-4.jpg" data-alt="Modern kitchen with dining island"
             aria-label="Show image 4" aria-selected="false">
       <img src="/img/villa-anja/villa-anja-4.jpg" alt="Kitchen and dining"
            class="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
     </button>
 
-    <button class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
+    <button type="button" role="option" class="relative flex-none w-24 md:w-28 aspect-[4/3] overflow-hidden rounded-lg"
             data-gallery-thumb data-full="/img/villa-anja/villa-anja-8.jpg" data-alt="Bathroom with walk-in rain shower"
             aria-label="Show image 5" aria-selected="false">
       <img src="/img/villa-anja/villa-anja-8.jpg" alt="Bathroom"
@@ -162,7 +163,6 @@
     <section>
       <p class="mb-4">Villa Anja is a sun-drenched Dalmatian retreat perched on a secluded cove, blending modern lines with traditional stone architecture. Floor-to-ceiling windows frame uninterrupted Adriatic views, while your private infinity pool and landscaped terraced garden await just steps from the shore.</p>
       <p>Inside, an open-plan living area, sleek kitchen, and bespoke furnishings create a relaxed yet refined atmosphere. Our dedicated local team is on call 24/7 to arrange private tours, island-hopping boat trips, and more.</p>
-    </section>
 
     <!-- PRICING BY SEASON -->
     <section id="pricing">
@@ -337,7 +337,7 @@
       </div>
       <!-- Connect & Social -->
       <div>
-        <h3 class="font-serif text-lg text-white mb-4">Connect With Us</h3>
+               <h3 class="font-serif text-lg text-white mb-4">Connect With Us</h3>
         <div class="flex space-x-4 mb-4">
           <a href="https://www.facebook.com/dubrovnikcoast" target="_blank" class="hover:text-white">
             <!-- fb svg -->
@@ -362,7 +362,7 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="/js/main.js"></script>
+  <script src="../main.js" defer></script>
   <script>
     // Hero slider
     (() => {
