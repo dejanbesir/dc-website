@@ -1,3 +1,10 @@
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/includes/homepage.php';
+
+$featuredSlides = fetch_featured_property_slides();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -254,137 +261,63 @@
       <div class="relative max-w-4xl mx-auto">
         <!-- Slides Container -->
         <div id="carousel" class="overflow-hidden rounded-lg shadow-lg">
-          <!-- Slide 1: Villa Anja -->
-          <div class="carousel-item flex-shrink-0 w-full" data-index="0">
-            <img
-              src="img/villa-anja/villa-anja.jpg"
-              alt="Villa Anja"
-              class="w-full h-64 object-cover"
-            />
-            <div class="p-6 text-left">
-              <h3 class="text-2xl font-semibold mb-2">Villa Anja</h3>
-              <p class="text-gray-600 mb-2">
-                Sleeps 6 • 3 Bedrooms • Private Pool & Garden
-              </p>
-              <p class="font-semibold mb-4">From €450/night</p>
-              <a
-                href="/villas/anja"
-                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+          <?php if (!empty($featuredSlides)): ?>
+            <?php foreach ($featuredSlides as $slideIndex => $slide): ?>
+              <?php $isActive = $slideIndex === 0; ?>
+              <?php $columnClass = count($slide['properties']) > 1 ? ' md:grid-cols-2' : ''; ?>
+              <div
+                class="carousel-item flex-shrink-0 w-full<?= $isActive ? '' : ' hidden' ?>"
+                data-index="<?= $slideIndex ?>"
+                <?php if (!$isActive): ?>aria-hidden="true"<?php endif; ?>
               >
-                View Details
-              </a>
+                <div class="grid gap-6<?= $columnClass ?>">
+                  <?php foreach ($slide['properties'] as $property): ?>
+                    <article class="flex flex-col text-left bg-white">
+                      <img
+                        src="<?= htmlspecialchars($property['hero_image'], ENT_QUOTES, 'UTF-8') ?>"
+                        alt="<?= htmlspecialchars($property['hero_alt'] !== '' ? $property['hero_alt'] : $property['name'], ENT_QUOTES, 'UTF-8') ?>"
+                        class="w-full h-64 object-cover"
+                        loading="lazy"
+                      />
+                      <div class="p-6 text-left flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-2"><?= htmlspecialchars($property['name'], ENT_QUOTES, 'UTF-8') ?></h3>
+                        <?php if (!empty($property['highlights'])): ?>
+                          <p class="text-gray-600 mb-2">
+                            <?php foreach ($property['highlights'] as $idx => $highlight): ?>
+                              <?php if ($idx > 0): ?>
+                                <span class="mx-2 text-gray-400">&bull;</span>
+                              <?php endif; ?>
+                              <span><?= htmlspecialchars($highlight, ENT_QUOTES, 'UTF-8') ?></span>
+                            <?php endforeach; ?>
+                          </p>
+                        <?php endif; ?>
+                        <?php if (!empty($property['price_label'])): ?>
+                          <p class="font-semibold mb-4"><?= $property['price_label'] ?></p>
+                        <?php endif; ?>
+                        <div class="mt-auto">
+                          <a
+                            href="<?= htmlspecialchars($property['url'], ENT_QUOTES, 'UTF-8') ?>"
+                            class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                          >
+                            View Details
+                          </a>
+                        </div>
+                      </div>
+                    </article>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <div class="carousel-item flex-shrink-0 w-full" data-index="0">
+              <div class="p-6 text-left">
+                <h3 class="text-2xl font-semibold mb-2">Featured properties coming soon</h3>
+                <p class="text-gray-600">
+                  Our team is curating the latest villas and apartments. Please check back soon.
+                </p>
+              </div>
             </div>
-          </div>
-
-          <!-- Slide 2: Villa Ivo -->
-          <div class="carousel-item flex-shrink-0 w-full hidden" data-index="1">
-            <img
-              src="img/villa-ivo/villa-ivo.jpg"
-              alt="Villa Ivo"
-              class="w-full h-64 object-cover"
-            />
-            <div class="p-6 text-left">
-              <h3 class="text-2xl font-semibold mb-2">Villa Ivo</h3>
-              <p class="text-gray-600 mb-2">
-                Sleeps 15 • 7 Bedrooms • Infinity Pool & Outdoor Kitchen
-              </p>
-              <p class="font-semibold mb-4">From €1 000/night</p>
-              <a
-                href="/villas/ivo"
-                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-              >
-                View Details
-              </a>
-            </div>
-          </div>
-
-          <!-- Slide 3: Villa King -->
-          <div class="carousel-item flex-shrink-0 w-full hidden" data-index="2">
-            <img
-              src="img/villa-king/villa-king.jpg"
-              alt="Villa King"
-              class="w-full h-64 object-cover"
-            />
-            <div class="p-6 text-left">
-              <h3 class="text-2xl font-semibold mb-2">Villa King</h3>
-              <p class="text-gray-600 mb-2">
-                Sleeps 14 • 4 Bedrooms + Attic Suite • Sea-View Terraces & Covered Garage
-              </p>
-              <p class="font-semibold mb-4">From €210/night</p>
-              <a
-                href="/villas/king"
-                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-              >
-                View Details
-              </a>
-            </div>
-          </div>
-
-          <!-- Slide 4: Apartment Leona -->
-          <div class="carousel-item flex-shrink-0 w-full hidden" data-index="3">
-            <img
-              src="img/apartment-leona/apartment-leona.jpg"
-              alt="Apartment Leona"
-              class="w-full h-64 object-cover"
-            />
-            <div class="p-6 text-left">
-              <h3 class="text-2xl font-semibold mb-2">Apartment Leona</h3>
-              <p class="text-gray-600 mb-2">
-                Sleeps 4 • 1 Bedroom + Living Area • AC & Sound-Proof Windows
-              </p>
-              <p class="font-semibold mb-4">From €155/night</p>
-              <a
-                href="/apartments/leona"
-                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-              >
-                View Details
-              </a>
-            </div>
-          </div>
-
-          <!-- Slide 5: Apartment Amfora -->
-          <div class="carousel-item flex-shrink-0 w-full hidden" data-index="4">
-            <img
-              src="img/apartment-amfora/apartment-amfora.jpg"
-              alt="Apartment Amfora"
-              class="w-full h-64 object-cover"
-            />
-            <div class="p-6 text-left">
-              <h3 class="text-2xl font-semibold mb-2">Apartment Amfora</h3>
-              <p class="text-gray-600 mb-2">
-                Sleeps 3 • 1 Bedroom + Mezzanine • AC, Wi-Fi & TV
-              </p>
-              <p class="font-semibold mb-4">From €145/night</p>
-              <a
-                href="/apartments/amfora"
-                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-              >
-                View Details
-              </a>
-            </div>
-          </div>
-
-          <!-- Slide 6: Seven Stars Deluxe w/ View -->
-          <div class="carousel-item flex-shrink-0 w-full hidden" data-index="5">
-            <img
-              src="img/seven-stars-r6/seven-stars-6.jpg"
-              alt="Seven Stars Deluxe w/ View"
-              class="w-full h-64 object-cover"
-            />
-            <div class="p-6 text-left">
-              <h3 class="text-2xl font-semibold mb-2">Seven Stars Deluxe w/ View</h3>
-              <p class="text-gray-600 mb-2">
-                Sleeps 2 • 1 Bedroom • Panoramic View & AC
-              </p>
-              <p class="font-semibold mb-4">From €130/night</p>
-              <a
-                href="/apartments/seven-stars-deluxe-view"
-                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-              >
-                View Details
-              </a>
-            </div>
-          </div>
+          <?php endif; ?>
         </div>
 
         <!-- Carousel Controls -->
@@ -559,3 +492,5 @@
   <script src="main.js"></script>
 </body>
 </html>
+
+

@@ -3,7 +3,7 @@ RewriteEngine On
 RewriteBase /
 
 # 1) Serve index.html for directory requests (e.g. /properties/, /blog/)
-DirectoryIndex index.html
+DirectoryIndex index.php index.html
 
 # 2) Ensure directory URLs have a trailing slash
 RewriteCond %{REQUEST_FILENAME} -d
