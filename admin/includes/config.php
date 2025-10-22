@@ -24,6 +24,8 @@ define('PROJECT_ROOT', dirname(__DIR__, 2));
 define('PUBLIC_IMG_DIR', PROJECT_ROOT . DIRECTORY_SEPARATOR . 'img');
 define('PUBLIC_IMG_PREFIX', '/img');
 define('PROPERTY_OUTPUT_DIR', PROJECT_ROOT . DIRECTORY_SEPARATOR . 'properties');
+define('BLOG_IMAGE_DIR', PUBLIC_IMG_DIR . DIRECTORY_SEPARATOR . 'blog');
+define('BLOG_IMAGE_PREFIX', PUBLIC_IMG_PREFIX . '/blog');
 
 // Public site configuration.
 const SITE_BASE_URL = 'https://dubrovnik-coast.com';

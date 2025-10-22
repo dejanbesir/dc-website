@@ -14,7 +14,10 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# 4) If adding ".html" makes it point to a real file, serve that (and keep the clean URL)
+# 4) Map blog slugs to dynamic post controller
+RewriteRule ^blog/([^/]+)/?$ blog/post.php?slug=$1 [L,QSA]
+
+# 5) If adding ".html" makes it point to a real file, serve that (and keep the clean URL)
 RewriteCond %{REQUEST_FILENAME}\.html -f
 RewriteRule ^(.*?)/?$ $1.html [L]
 

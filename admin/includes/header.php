@@ -22,6 +22,7 @@ $flash = get_flash_messages();
         <nav class="space-x-4 text-sm font-medium">
             <a href="/admin/dashboard.php" class="<?= $activeNav === 'overview' ? 'text-amber-300 underline' : 'hover:text-amber-200' ?>">Overview</a>
             <a href="/admin/properties.php" class="<?= $activeNav === 'properties' ? 'text-amber-300 underline' : 'hover:text-amber-200' ?>">Properties</a>
+            <a href="/admin/blog.php" class="<?= $activeNav === 'blog' ? 'text-amber-300 underline' : 'hover:text-amber-200' ?>">Blog</a>
             <a href="/admin/calendar.php" class="<?= $activeNav === 'calendar' ? 'text-amber-300 underline' : 'hover:text-amber-200' ?>">Calendar</a>
             <a href="/admin/logout.php" class="hover:text-amber-200">Logout</a>
         </nav>
