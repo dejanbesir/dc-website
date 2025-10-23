@@ -414,7 +414,7 @@ $featuredSlides = fetch_featured_property_slides();
     <div class="container mx-auto px-6 text-center">
       <h2 class="text-3xl font-serif text-indigo-800 mb-4">Get Inspired: Dubrovnik Insider Guide</h2>
       <p class="text-gray-700 mb-6">“From secret beaches to festive summer concerts—our blog is your gateway to Dubrovnik’s best-kept secrets.”</p>
-      <a href="blog.html"
+      <a href="/blog/"
         class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium">Read Our Latest Articles</a>
     </div>
   </section>
