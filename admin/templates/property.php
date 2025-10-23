@@ -268,9 +268,152 @@ $seasonHasRates = array_filter($seasons, static fn ($season) => !empty($season['
         <?php endif; ?>
 
         <section id="availability" class="space-y-4">
-            <h2 class="text-2xl font-semibold text-gray-800">Availability</h2>
-            <div class="bg-gray-100 h-64 flex items-center justify-center text-gray-500 rounded-lg border border-gray-200">
-                Availability calendar integration coming soon. Contact our concierge for exact travel dates.
+            <h2 class="text-2xl font-semibold text-gray-800">Book Your Stay</h2>
+            <div
+                class="bg-white border border-gray-200 rounded-xl shadow-sm"
+                data-booking-widget
+                data-property-id="<?= (int) $property['id'] ?>"
+                data-property-name="<?= htmlspecialchars($property['name']) ?>"
+                data-property-slug="<?= htmlspecialchars($property['slug']) ?>"
+            >
+                <div class="border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.25em] text-indigo-600">Step 1</p>
+                        <h3 class="text-xl font-semibold text-gray-800">Choose your dates</h3>
+                    </div>
+                    <div class="text-right text-sm text-gray-500">
+                        <div>Arrive <span data-booking-arrival-display class="font-medium text-gray-700">—</span></div>
+                        <div>Depart <span data-booking-departure-display class="font-medium text-gray-700">—</span></div>
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-[2fr_1fr] gap-6 px-6 py-6">
+                    <div>
+                        <div class="grid md:grid-cols-3 gap-4" data-booking-calendar></div>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <button
+                                type="button"
+                                class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-60"
+                                data-booking-confirm-dates
+                                disabled
+                            >
+                                Confirm Dates
+                            </button>
+                            <button
+                                type="button"
+                                class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition hidden"
+                                data-booking-reset
+                            >
+                                Reset selection
+                            </button>
+                        </div>
+                        <p class="mt-3 text-sm text-gray-500" data-booking-status></p>
+                    </div>
+                    <aside class="space-y-4 text-sm text-gray-600">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-block w-3 h-3 rounded-full bg-white border border-gray-300"></span>
+                            <span>Available</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="inline-block w-3 h-3 rounded-full bg-gray-300 border border-gray-300"></span>
+                            <span>Unavailable</span>
+                        </div>
+                        <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+                            <p class="font-medium text-indigo-700">Need travel planning?</p>
+                            <p>Our concierge can assist with private transfers, boating, and in-villa experiences.</p>
+                        </div>
+                    </aside>
+                </div>
+                <div class="border-t border-gray-100 px-6 py-6 space-y-6 hidden" data-booking-details>
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.25em] text-indigo-600">Step 2</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Guest details</h3>
+                        <p class="text-sm text-gray-500">Share who will be travelling so we can personalise your stay.</p>
+                    </div>
+                    <form class="grid gap-4" data-booking-form>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <label class="text-sm text-gray-700">
+                                Full name
+                                <input type="text" name="full_name" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" required>
+                            </label>
+                            <label class="text-sm text-gray-700">
+                                Email
+                                <input type="email" name="email" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" required>
+                            </label>
+                            <label class="text-sm text-gray-700">
+                                Telephone
+                                <input type="tel" name="phone" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" required>
+                            </label>
+                            <label class="text-sm text-gray-700">
+                                Country
+                                <input type="text" name="country" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" required>
+                            </label>
+                        </div>
+                        <label class="text-sm text-gray-700">
+                            Address
+                            <input type="text" name="address" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" required>
+                        </label>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <label class="text-sm text-gray-700">
+                                City
+                                <input type="text" name="city" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" required>
+                            </label>
+                            <label class="text-sm text-gray-700">
+                                Region / State
+                                <input type="text" name="region" class="mt-1 w-full border border-gray-300 rounded px-3 py-2">
+                            </label>
+                            <label class="text-sm text-gray-700">
+                                Postal / ZIP
+                                <input type="text" name="postal_code" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" required>
+                            </label>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <label class="text-sm text-gray-700">
+                                Adults
+                                <input type="number" name="adults" min="1" value="2" class="mt-1 w-full border border-gray-300 rounded px-3 py-2">
+                            </label>
+                            <label class="text-sm text-gray-700">
+                                Children
+                                <input type="number" name="children" min="0" value="0" class="mt-1 w-full border border-gray-300 rounded px-3 py-2">
+                            </label>
+                            <label class="text-sm text-gray-700">
+                                Infants
+                                <input type="number" name="infants" min="0" value="0" class="mt-1 w-full border border-gray-300 rounded px-3 py-2">
+                            </label>
+                        </div>
+                        <label class="text-sm text-gray-700">
+                            Traveller ages (comma separated)
+                            <input type="text" name="traveller_ages" class="mt-1 w-full border border-gray-300 rounded px-3 py-2" placeholder="e.g. 42, 40, 12, 9">
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-60">
+                                Confirm &amp; send verification
+                            </button>
+                            <button type="button" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition" data-booking-back>
+                                Back to dates
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-500" data-booking-form-status></p>
+                    </form>
+                </div>
+                <div class="border-t border-gray-100 px-6 py-6 hidden" data-booking-next-steps>
+                    <div class="space-y-3">
+                        <p class="text-sm uppercase tracking-[0.25em] text-indigo-600">Next steps</p>
+                        <h3 class="text-xl font-semibold text-gray-800">Check your inbox</h3>
+                        <p class="text-sm text-gray-600">
+                            We sent a confirmation link to <span data-booking-email class="font-medium text-gray-800"></span>.
+                            Please verify within 24 hours to proceed to secure payment via Stripe.
+                        </p>
+                        <p class="text-sm text-gray-500">
+                            Once confirmed, we will hold your dates while you complete payment.
+                        </p>
+                        <a href="/booking/checkout.php" class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm" data-booking-continue hidden>
+                            Continue to payment
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -327,5 +470,6 @@ $seasonHasRates = array_filter($seasons, static fn ($season) => !empty($season['
 </footer>
 
 <script src="/main.js" defer></script>
+<script src="/booking.js" defer></script>
 </body>
 </html>

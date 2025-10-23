@@ -26,6 +26,16 @@ define('PUBLIC_IMG_PREFIX', '/img');
 define('PROPERTY_OUTPUT_DIR', PROJECT_ROOT . DIRECTORY_SEPARATOR . 'properties');
 define('BLOG_IMAGE_DIR', PUBLIC_IMG_DIR . DIRECTORY_SEPARATOR . 'blog');
 define('BLOG_IMAGE_PREFIX', PUBLIC_IMG_PREFIX . '/blog');
+define('BOOKING_EXPORT_DIR', PROJECT_ROOT . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'ics');
 
 // Public site configuration.
 const SITE_BASE_URL = 'https://dubrovnik-coast.com';
+
+// Stripe configuration (set real keys via environment override).
+define('STRIPE_PUBLISHABLE_KEY', getenv('STRIPE_PUBLISHABLE_KEY') ?: 'pk_test_placeholder');
+define('STRIPE_SECRET_KEY', getenv('STRIPE_SECRET_KEY') ?: 'sk_test_placeholder');
+define('STRIPE_WEBHOOK_SECRET', getenv('STRIPE_WEBHOOK_SECRET') ?: 'whsec_placeholder');
+
+// Booking email configuration.
+define('BOOKING_FROM_EMAIL', getenv('BOOKING_FROM_EMAIL') ?: 'reservations@dubrovnik-coast.com');
+define('BOOKING_FROM_NAME', getenv('BOOKING_FROM_NAME') ?: 'Dubrovnik Coast Reservations');
