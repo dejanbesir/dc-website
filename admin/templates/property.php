@@ -143,15 +143,35 @@ $seasonHasRates = array_filter($seasons, static fn ($season) => !empty($season['
     <?php endif; ?>
 
     <section class="container mx-auto px-6 py-12 space-y-12">
-        <div class="space-y-2">
-            <h1 class="text-4xl font-serif text-indigo-800"><?= htmlspecialchars($property['name']) ?></h1>
-            <p class="text-lg text-gray-600"><?= htmlspecialchars($property['headline'] ?? '') ?></p>
-            <?php if ($summary !== ''): ?>
-                <p class="text-base text-gray-600"><?= htmlspecialchars($summary) ?></p>
-            <?php endif; ?>
-            <?php if (!empty($property['base_rate'])): ?>
-                <p class="font-semibold text-xl text-gray-800">From &euro;<?= number_format((float) $property['base_rate'], 0) ?> per night</p>
-            <?php endif; ?>
+        <div class="flex flex-wrap items-start justify-between gap-4">
+            <div class="space-y-2 max-w-3xl">
+                <h1 class="text-4xl font-serif text-indigo-800"><?= htmlspecialchars($property['name']) ?></h1>
+                <p class="text-lg text-gray-600"><?= htmlspecialchars($property['headline'] ?? '') ?></p>
+                <?php if ($summary !== ''): ?>
+                    <p class="text-base text-gray-600"><?= htmlspecialchars($summary) ?></p>
+                <?php endif; ?>
+                <?php if (!empty($property['base_rate'])): ?>
+                    <p class="font-semibold text-xl text-gray-800">From &euro;<?= number_format((float) $property['base_rate'], 0) ?> per night</p>
+                <?php endif; ?>
+            </div>
+            <div class="flex flex-col items-start gap-3 shrink-0">
+                <a
+                    href="#availability"
+                    data-booking-scroll
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                >
+                    Book this property
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a
+                    href="/contact/"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                >
+                    Speak to concierge
+                </a>
+            </div>
         </div>
 
         <?php if (!empty($descriptionParagraphs)): ?>
